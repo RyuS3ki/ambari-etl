@@ -2,9 +2,9 @@
 
 mount -o remount,rw /usr
 
-#cd /var/bigdata
+cd /var/bigdata
 
-	if [ -d /var/bigdata/ambari-etl ]
+	if [ ! -d /var/bigdata/ambari-etl ] ;
 	then
 		git clone https://github.com/ryus3ki/ambari-etl.git
 	fi
