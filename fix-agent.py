@@ -12,9 +12,25 @@ import os
 import subprocess
 import sys
 import getopt
+import errno
+import shutils
+
+#Funciones genericas para atomizar tareas
+def copy(src, dest):
+    try:
+        shutil.copytree(src, dest)
+    except OSError as e:
+        # If the error was caused because the source wasn't a directory
+        if e.errno == errno.ENOTDIR:
+            shutil.copy(src, dest)
+        else:
+            print('Directory not copied. Error: %s' % e)
 
 #DataNode, NameNode, NodeManager
-#def Generic():    
+def Generic():
+    copy('/usr/hdp', 'var/bigdata')
+    os.rename('/usr/hdp', '/usr/hdp-orig')
+    os.symlink('/var/bigdata/hdp', '/usr/hdp')
 
 #def HDFS():
 
@@ -36,7 +52,18 @@ import getopt
 
 #def Spark():
 
-#def all_services():
+def all_services():
+    Generic()
+    # HDFS()
+    # Yarn()
+    # MapReduce()
+    # Tez()
+    # Hive()
+    # HBase()
+    # Pig()
+    # ZooKeeper()
+    # AmbariMetrics()
+    # Spark()
 
 def usage():
   print "\nThis is the usage function\n"
