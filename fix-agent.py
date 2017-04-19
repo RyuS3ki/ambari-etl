@@ -16,7 +16,8 @@ import subprocess
 import sys
 import getopt
 import errno
-import shutils
+import shutil
+import ConfigParser
 
 #Funciones genericas para atomizar tareas
 def copy(src, dest):
@@ -65,25 +66,28 @@ def Generic():
     print "Preparing changes..."
     if os.path.exists("/var/bigdata/hdp"):
         print "Changes have been applied before, if you continue previous changes will be overwritten and some may fail"
-        cont = raw_input("Are you sure you want to continue? [y/n]:")
-        if cont == "y":
-            HDFS()
-
-        elif cont == "n":
-            cont1 = raw_input("Do you still want to apply config file changes? [y/n]:")
-            if cont1 == "y":
-                conf_changes = True
-                selector()
-            else:
-                exit()
+        #print "It is recommended that you use the option -d to start over"
+        cont1 = raw_input("Do you still want to apply config file changes? [y/n]:")
+        if cont1 == "y":
+            print "(Changes based on HDFS will be skipped)"
+            return 1
+        elif cont1 == "n":
+            print "Exiting..."
+            exit()
         else:
             print "Not a valid answer"
             print "Exiting..."
             exit()
 
+    else:
+        HDFS()
+        return 0
+
 def all_services():
-    Generic()
-    # HDFS()
+    if Generic() == 1:
+        print "Continuing with services..."
+    else:
+        print "Generic changes done!"
     # Yarn()
     # MapReduce()
     # Tez()
@@ -95,35 +99,38 @@ def all_services():
     # Spark()
 
 def selector(confile):
-    global conf_changes = False
+    #global conf_changes = False
     #Inicializamos el Parser y abrimos el archivo de configuracion
+    var = 0
     Config = ConfigParser.ConfigParser()
     Config.read(confile)
 
     yarn = Config.getboolean("Services", "Yarn")
-    print "El servicio Yarn está: %r" % (yarn)
+    print "El servicio Yarn esta: %r" % (yarn)
     mreduce = Config.getboolean("Services", "MapReduce")
-    print "El servicio Yarn está: %r" % (yarn)
+    print "El servicio Yarn esta: %r" % (yarn)
     tez = Config.getboolean("Services", "Tez")
-    print "El servicio Yarn está: %r" % (yarn)
+    print "El servicio Yarn esta: %r" % (yarn)
     hive = Config.getboolean("Services", "Hive")
-    print "El servicio Yarn está: %r" % (yarn)
+    print "El servicio Yarn esta: %r" % (yarn)
     hbase = Config.getboolean("Services", "HBase")
-    print "El servicio Yarn está: %r" % (yarn)
+    print "El servicio Yarn esta: %r" % (yarn)
     pig = Config.getboolean("Services", "Pig")
-    print "El servicio Yarn está: %r" % (yarn)
+    print "El servicio Yarn esta: %r" % (yarn)
     zkeeper = Config.getboolean("Services", "ZooKeeper")
-    print "El servicio Yarn está: %r" % (yarn)
+    print "El servicio Yarn esta: %r" % (yarn)
     ams = Config.getboolean("Services", "AmbariMetrics")
-    print "El servicio Yarn está: %r" % (yarn)
+    print "El servicio Yarn esta: %r" % (yarn)
     spark = Config.getboolean("Services", "Spark")
-    print "El servicio Yarn está: %r" % (yarn)
+    print "El servicio Yarn esta: %r" % (yarn)
 
     '''Esta funcion contiene lo minimo que podemos lanzar para tener una
     instancia de Hadoop, debe ejecutarse siempre que se utilice el fix'''
 
-    if !conf_changes:
-        Generic()
+    if Generic() == 1:
+        print "Continuing with services..."
+    else:
+        print "Generic changes done!"
 
 
     '''Ejecutamos ahora los servicios seleccionados en el archivo de
@@ -166,6 +173,7 @@ def usage():
 
 
 def main(argv):
+    os.system("clear")
     #Codigo para leer argumentos
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'ahs:', ['all', 'help', 'services='])
@@ -178,20 +186,21 @@ def main(argv):
             usage()
             sys.exit(2)
         elif opt in ('-s', '--services'):
-            print 'Abriendo archivo de configuracion'
+            print 'Opening config file'
             confile = sys.argv[2]
             selector(confile)
         elif opt in ('-a', '--all'):
-            print 'Se haran cambios para todos los servicios'
-            cont = raw_input("Esta seguro? (y/n):")
+            print 'This will make changes for all the services'
+            cont = raw_input("Are you sure? (y/n):")
             if cont == "y":
                 all_services()
             elif cont == "n":
-                print 'Lance otra vez el fix e introduzca los parametros deseados'
+                print 'Execute this script again using the desired parameters'
                 usage()
                 sys.exit(2)
             else:
-                print 'Valor erroneo, debe introducir y/n'
+                print 'Wrong usage'
+                print 'Exiting...'
                 usage()
                 sys.exit(2)
         else:
