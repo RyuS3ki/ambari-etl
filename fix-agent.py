@@ -61,53 +61,6 @@ def HDFS():
 
 #DataNode, NameNode, NodeManager
 
-def selector():
-    yarn = Config.getboolean("Services", "Yarn")
-    mreduce = Config.getboolean("Services", "MapReduce")
-    tez = Config.getboolean("Services", "Tez")
-    hive = Config.getboolean("Services", "Hive")
-    hbase = Config.getboolean("Services", "HBase")
-    pig = Config.getboolean("Services", "Pig")
-    zkeeper = Config.getboolean("Services", "ZooKeeper")
-    ams = Config.getboolean("Services", "AmbariMetrics")
-    spark = Config.getboolean("Services", "Spark")
-
-    if yarn:
-        print "Yarn selected"
-        #Yarn()
-
-    if mreduce:
-        print "MapReduce selected"
-        #MapReduce()
-
-    if tez:
-        print "Tez selected"
-        #Tez()
-
-    if hive:
-        print "Hive selected"
-        #Hive()
-
-    if hbase:
-        print "HBase selected"
-        #HBase()
-
-    if pig:
-        print "Pig selected"
-        #Yarn()
-
-    if zkeeper:
-        print "ZooKeeper selected"
-        #ZooKeeper()
-
-    if ams:
-        print "AmbariMetrics selected"
-        #AmbariMetrics()
-
-    if spark:
-        print "Spark selected"
-        #Spark()
-
 def Generic():
     print "Preparing changes..."
     if os.path.exists("/var/bigdata/hdp"):
@@ -119,11 +72,12 @@ def Generic():
         elif cont == "n":
             cont1 = raw_input("Do you still want to apply config file changes? [y/n]:")
             if cont1 == "y":
+                conf_changes = True
                 selector()
             else:
                 exit()
         else:
-            print "Not valid answer"
+            print "Not a valid answer"
             print "Exiting..."
             exit()
 
@@ -140,6 +94,69 @@ def all_services():
     # AmbariMetrics()
     # Spark()
 
+def selector(confile):
+    global conf_changes = False
+    #Inicializamos el Parser y abrimos el archivo de configuracion
+    Config = ConfigParser.ConfigParser()
+    Config.read(confile)
+
+    yarn = Config.getboolean("Services", "Yarn")
+    print "El servicio Yarn está: %r" % (yarn)
+    mreduce = Config.getboolean("Services", "MapReduce")
+    print "El servicio Yarn está: %r" % (yarn)
+    tez = Config.getboolean("Services", "Tez")
+    print "El servicio Yarn está: %r" % (yarn)
+    hive = Config.getboolean("Services", "Hive")
+    print "El servicio Yarn está: %r" % (yarn)
+    hbase = Config.getboolean("Services", "HBase")
+    print "El servicio Yarn está: %r" % (yarn)
+    pig = Config.getboolean("Services", "Pig")
+    print "El servicio Yarn está: %r" % (yarn)
+    zkeeper = Config.getboolean("Services", "ZooKeeper")
+    print "El servicio Yarn está: %r" % (yarn)
+    ams = Config.getboolean("Services", "AmbariMetrics")
+    print "El servicio Yarn está: %r" % (yarn)
+    spark = Config.getboolean("Services", "Spark")
+    print "El servicio Yarn está: %r" % (yarn)
+
+    '''Esta funcion contiene lo minimo que podemos lanzar para tener una
+    instancia de Hadoop, debe ejecutarse siempre que se utilice el fix'''
+
+    if !conf_changes:
+        Generic()
+
+
+    '''Ejecutamos ahora los servicios seleccionados en el archivo de
+    configuracion'''
+    '''
+    if yarn == True:
+        #Yarn()
+
+    if mreduce == True:
+        #MapReduce()
+
+    if tez == True:
+        #Tez()
+
+    if hive == True:
+        #Hive()
+
+    if hbase == True:
+        #HBase()
+
+    if pig == True:
+        #Pig()
+
+    if zkeeper == True:
+        #ZooKeeper()
+
+    if ams == True:
+        #AmbariMetrics()
+
+    if spark == True:
+        #Spark()
+'''
+
 def usage():
   print "\nThis is the usage function\n"
   print 'Usage: '+sys.argv[0]+' -[option]'
@@ -147,8 +164,9 @@ def usage():
   print '-s path/to/file.ini:       You must specify a config file with a list of services'
   print '-h:                        This help is printed'
 
-#Codigo para leer argumentos
+
 def main(argv):
+    #Codigo para leer argumentos
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'ahs:', ['all', 'help', 'services='])
     except getopt.GetoptError:
