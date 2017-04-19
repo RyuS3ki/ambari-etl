@@ -34,9 +34,12 @@ def copy(src, dest):
             print('Directory not copied. Error: %s' % e)
 
 def HDFS():
+    print "Installing HDFS in the system..."
     copy('/usr/hdp', 'var/bigdata')
     os.rename('/usr/hdp', '/usr/hdp-orig')
     os.symlink('/var/bigdata/hdp', '/usr/hdp')
+    print "Done!"
+
 
 #def Yarn():
 
@@ -57,8 +60,72 @@ def HDFS():
 #def Spark():
 
 #DataNode, NameNode, NodeManager
+
+def selector():
+    yarn = Config.getboolean("Services", "Yarn")
+    mreduce = Config.getboolean("Services", "MapReduce")
+    tez = Config.getboolean("Services", "Tez")
+    hive = Config.getboolean("Services", "Hive")
+    hbase = Config.getboolean("Services", "HBase")
+    pig = Config.getboolean("Services", "Pig")
+    zkeeper = Config.getboolean("Services", "ZooKeeper")
+    ams = Config.getboolean("Services", "AmbariMetrics")
+    spark = Config.getboolean("Services", "Spark")
+
+    if yarn:
+        print "Yarn selected"
+        #Yarn()
+
+    if mreduce:
+        print "MapReduce selected"
+        #MapReduce()
+
+    if tez:
+        print "Tez selected"
+        #Tez()
+
+    if hive:
+        print "Hive selected"
+        #Hive()
+
+    if hbase:
+        print "HBase selected"
+        #HBase()
+
+    if pig:
+        print "Pig selected"
+        #Yarn()
+
+    if zkeeper:
+        print "ZooKeeper selected"
+        #ZooKeeper()
+
+    if ams:
+        print "AmbariMetrics selected"
+        #AmbariMetrics()
+
+    if spark:
+        print "Spark selected"
+        #Spark()
+
 def Generic():
-    HDFS()
+    print "Preparing changes..."
+    if os.path.exists("/var/bigdata/hdp"):
+        print "Changes have been applied before, if you continue previous changes will be overwritten and some may fail"
+        cont = raw_input("Are you sure you want to continue? [y/n]:")
+        if cont == "y":
+            HDFS()
+
+        elif cont == "n":
+            cont1 = raw_input("Do you still want to apply config file changes? [y/n]:")
+            if cont1 == "y":
+                selector()
+            else:
+                exit()
+        else:
+            print "Not valid answer"
+            print "Exiting..."
+            exit()
 
 def all_services():
     Generic()
@@ -72,19 +139,6 @@ def all_services():
     # ZooKeeper()
     # AmbariMetrics()
     # Spark()
-
-def selector():
-    yarn = Config.getboolean("Services", "Yarn")
-    mreduce = Config.getboolean("Services", "MapReduce")
-    tez = Config.getboolean("Services", "Tez")
-    hive = Config.getboolean("Services", "Hive")
-    hbase = Config.getboolean("Services", "HBase")
-    pig = Config.getboolean("Services", "Pig")
-    zkeeper = Config.getboolean("Services", "ZooKeeper")
-    ams = Config.getboolean("Services", "AmbariMetrics")
-    spark = Config.getboolean("Services", "Spark")
-
-
 
 def usage():
   print "\nThis is the usage function\n"
