@@ -43,6 +43,8 @@ def get_size(start_path):
     return total_size
 
 #Servicios
+
+#DataNode, NameNode, NodeManager
 def HDFS():
     subprocess.call(["mount", "-o", "remount,rw", "/usr"])
     print "Installing HDFS in the system..."
@@ -76,8 +78,6 @@ def HDFS():
 #def AmbariMetrics():
 
 #def Spark():
-
-#DataNode, NameNode, NodeManager
 
 def Generic():
     print "Preparing changes..."
@@ -115,31 +115,31 @@ def all_services():
     # AmbariMetrics()
     # Spark()
 
+#Function that reads config file and sets services to be changed
 def selector(confile):
-    #global conf_changes = False
-    #Inicializamos el Parser y abrimos el archivo de configuracion
+    #Initializing parser and reading from config file
     var = 0
     Config = ConfigParser.ConfigParser()
     Config.read(confile)
 
     yarn = Config.getboolean("Services", "Yarn")
-    print "El servicio Yarn esta: %r" % (yarn)
+    print "Yarn service has been set to: %r" % (yarn)
     mreduce = Config.getboolean("Services", "MapReduce")
-    print "El servicio Yarn esta: %r" % (yarn)
+    print "MapReduce service has been set to: %r" % (mreduce)
     tez = Config.getboolean("Services", "Tez")
-    print "El servicio Yarn esta: %r" % (yarn)
+    print "Tez service has been set to: %r" % (tez)
     hive = Config.getboolean("Services", "Hive")
-    print "El servicio Yarn esta: %r" % (yarn)
+    print "Hive service has been set to: %r" % (hive)
     hbase = Config.getboolean("Services", "HBase")
-    print "El servicio Yarn esta: %r" % (yarn)
+    print "HBase service has been set to: %r" % (hbase)
     pig = Config.getboolean("Services", "Pig")
-    print "El servicio Yarn esta: %r" % (yarn)
+    print "Pig service has been set to: %r" % (pig)
     zkeeper = Config.getboolean("Services", "ZooKeeper")
-    print "El servicio Yarn esta: %r" % (yarn)
+    print "ZooKeeper service has been set to: %r" % (zkeeper)
     ams = Config.getboolean("Services", "AmbariMetrics")
-    print "El servicio Yarn esta: %r" % (yarn)
+    print "Ambari Metrics service has been set to: %r" % (ams)
     spark = Config.getboolean("Services", "Spark")
-    print "El servicio Yarn esta: %r" % (yarn)
+    print "Spark service has been set to: %r" % (spark)
 
     '''Esta funcion contiene lo minimo que podemos lanzar para tener una
     instancia de Hadoop, debe ejecutarse siempre que se utilice el fix'''
