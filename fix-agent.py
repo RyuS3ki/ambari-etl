@@ -42,9 +42,9 @@ def get_size(start_path):
             total_size += os.path.getsize(fp)
     return total_size
 
-#Servicios
+# Services
 
-#DataNode, NameNode, NodeManager
+# Basic services needed to run a basic Hadoop instance
 def HDFS():
     subprocess.call(["mount", "-o", "remount,rw", "/usr"])
     print "Installing HDFS in the system..."
@@ -115,10 +115,8 @@ def all_services():
     # AmbariMetrics()
     # Spark()
 
-#Function that reads config file and sets services to be changed
+# Function that reads config file and sets services to be changed
 def selector(confile):
-    #Initializing parser and reading from config file
-    var = 0
     Config = ConfigParser.ConfigParser()
     Config.read(confile)
 
@@ -141,18 +139,15 @@ def selector(confile):
     spark = Config.getboolean("Services", "Spark")
     print "Spark service has been set to: %r" % (spark)
 
-    '''Esta funcion contiene lo minimo que podemos lanzar para tener una
-    instancia de Hadoop, debe ejecutarse siempre que se utilice el fix'''
-
     if Generic() == 1:
         print "Continuing with services..."
     else:
         print "Generic changes done!"
 
 
-    '''Ejecutamos ahora los servicios seleccionados en el archivo de
-    configuracion'''
-    '''
+'''Ejecutamos ahora los servicios seleccionados en el archivo de
+    configuracion
+
     if yarn == True:
         #Yarn()
 
@@ -181,6 +176,8 @@ def selector(confile):
         #Spark()
 '''
 
+# Function that resets all client configuration about Ambari (this is the
+# desperate method for "fixing" things)
 def Reset():
     script = 'agent-reset.sh'
     print "Resetting agent..."
