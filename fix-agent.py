@@ -34,12 +34,29 @@ def copy(src, dest):
         else:
             print('Directory not copied. Error: %s' % e)
 
+def get_size(start_path):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+    return total_size
+
+#Servicios
 def HDFS():
+    subprocess.call(["mount", "-o", "remount,rw", "/usr"])
     print "Installing HDFS in the system..."
     copy('/usr/hdp', 'var/bigdata')
     os.rename('/usr/hdp', '/usr/hdp-orig')
+    tam_orig = get_size('/usr/hdp-orig')
     os.symlink('/var/bigdata/hdp', '/usr/hdp')
-    print "Done!"
+    tam_bd = get_size('/var/bigdata/hdp')
+    if tam_bd == tam_orig:
+        subprocess.call(["mount", "-o", "remount,ro", "/usr"])
+        print "Done!"
+    else:
+        print "An error occurred, please contact the SysAdmin"
+
 
 
 #def Yarn():
@@ -65,7 +82,7 @@ def HDFS():
 def Generic():
     print "Preparing changes..."
     if os.path.exists("/var/bigdata/hdp"):
-        print "Changes have been applied before, if you continue previous changes will be overwritten and some may fail"
+        print "Changes have been applied before, if you continue previous changes can be overwritten and some may fail"
         #print "It is recommended that you use the option -d to start over"
         cont1 = raw_input("Do you still want to apply config file changes? [y/n]:")
         if cont1 == "y":
@@ -167,13 +184,14 @@ def selector(confile):
 def usage():
   print "\nThis is the usage function\n"
   print 'Usage: '+sys.argv[0]+' -[option]'
-  print '-a:                        All services are configured'
+  print '-a                 :       All services are configured'
   print '-s path/to/file.ini:       You must specify a config file with a list of services'
-  print '-h:                        This help is printed'
+  print '-h                 :       This help is printed'
 
 
 def main(argv):
-    os.system("clear")
+    os.system('clear')
+    print "AMBARI ETL SCRIPT\n"
     #Codigo para leer argumentos
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'ahs:', ['all', 'help', 'services='])
@@ -186,21 +204,21 @@ def main(argv):
             usage()
             sys.exit(2)
         elif opt in ('-s', '--services'):
-            print 'Opening config file'
+            print "Opening config file"
             confile = sys.argv[2]
             selector(confile)
         elif opt in ('-a', '--all'):
-            print 'This will make changes for all the services'
+            print "This will make changes for all the services"
             cont = raw_input("Are you sure? (y/n):")
             if cont == "y":
                 all_services()
             elif cont == "n":
-                print 'Execute this script again using the desired parameters'
+                print "Execute this script again using the desired parameters"
                 usage()
                 sys.exit(2)
             else:
-                print 'Wrong usage'
-                print 'Exiting...'
+                print "Wrong usage"
+                print "Exiting..."
                 usage()
                 sys.exit(2)
         else:
