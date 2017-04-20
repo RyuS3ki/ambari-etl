@@ -46,7 +46,7 @@ def get_size(start_path):
 def HDFS():
     subprocess.call(["mount", "-o", "remount,rw", "/usr"])
     print "Installing HDFS in the system..."
-    copy('/usr/hdp', 'var/bigdata')
+    copy('/usr/hdp', '/var/bigdata')
     os.rename('/usr/hdp', '/usr/hdp-orig')
     tam_orig = get_size('/usr/hdp-orig')
     os.symlink('/var/bigdata/hdp', '/usr/hdp')
