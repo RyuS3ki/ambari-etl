@@ -57,7 +57,7 @@ def HDFS():
         subprocess.call(["mount", "-o", "remount,ro", "/usr"])
         print "Done!"
     else:
-        print "An error occurred, please contact the SysAdmin"
+        print "An error occurred, please contact the SysAdmin in: guru.it.uc3m.es"
 
 
 
