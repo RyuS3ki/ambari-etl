@@ -181,11 +181,18 @@ def selector(confile):
         #Spark()
 '''
 
+def Reset():
+    script = 'agent-reset.sh'
+    print "Resetting agent..."
+    subprocess.check_output(script, shell=True)
+    print "Done! Remember to run this script again before connecting to the server"
+
 def usage():
   print "\nThis is the usage function\n"
   print 'Usage: '+sys.argv[0]+' -[option]'
   print '-a                 :       All services are configured'
   print '-s path/to/file.ini:       You must specify a config file with a list of services'
+  print '-r                 :       Reset the agent to default values (configuration loss)'
   print '-h                 :       This help is printed'
 
 
@@ -194,7 +201,7 @@ def main(argv):
     print "AMBARI ETL SCRIPT\n"
     #Codigo para leer argumentos
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'ahs:', ['all', 'help', 'services='])
+        opts, args = getopt.getopt(sys.argv[1:], 'ahrs:', ['all', 'help', 'reset', 'services='])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -221,6 +228,24 @@ def main(argv):
                 print "Exiting..."
                 usage()
                 sys.exit(2)
+        elif opt in ('-r', '--reset'):
+            print "You're about to reset all previous configuration in this client"
+            print "If you have any problem try first contacting the SysAdmins, "
+            print "you can do so in: guru.it.uc3m.es"
+            print "If you choose to continue, remember Ambari won't work until you"
+            print "run this script again."
+            print "Remember: Great power comes with great responsability"
+            c = raw_input("Are you sure? (y/n):")
+            if c == "y":
+                Reset()
+            elif c == "n":
+                print "Exiting..."
+            else:
+                print "Wrong usage"
+                print "Exiting..."
+                usage()
+                sys.exit(2)
+
         else:
             usage()
             sys.exit(2)
