@@ -57,7 +57,9 @@ def HDFS():
         subprocess.call(["mount", "-o", "remount,ro", "/usr"])
         print "Done!"
     else:
-        print "An error occurred, please contact the SysAdmin in: guru.it.uc3m.es"
+        print "Error 301: Copy doesn't match original"
+        print "An error occurred, please contact the SysAdmin with this error"
+        print "in: guru.it.uc3m.es"
 
 
 
