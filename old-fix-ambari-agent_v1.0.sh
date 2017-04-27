@@ -24,7 +24,7 @@ cd /var/bigdata
 		TAM_BD = `du /var/bigdata/hdp`
 		TAM_ORIG = `du /usr/hdp`
 
-		if [ TAM_BD = TAM_ORIG ]
+		if [ $TAM_BD = $TAM_ORIG ]
 		then
 			rm -rf /usr/hdp
 		fi
