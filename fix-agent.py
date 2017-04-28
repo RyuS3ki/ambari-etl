@@ -48,15 +48,17 @@ def get_size(start_path):
 def HDFS():
     subprocess.call(["mount", "-o", "remount,rw", "/usr"])
     print "Installing HDFS in the system..."
-    copy('/usr/hdp', '/var/bigdata/servicios')
-    os.rename('/usr/hdp', '/usr/hdp-orig')
-    tam_orig = get_size('/usr/hdp-orig')
-    os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
+    copy('/usr/hdp', '/var/bigdata/servicios/')
+    tam_orig = get_size('/usr/hdp')
     tam_bd = get_size('/var/bigdata/servicios/hdp')
+
     if tam_bd == tam_orig:
+        os.rename('/usr/hdp', '/usr/hdp-orig')
+        os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
         subprocess.call(["mount", "-o", "remount,ro", "/usr"])
         print "Done!"
     else:
+        subprocess.call(["rm", "-rf", "/var/bigdata/servicios/hdp"])
         print "Error 301: Copy doesn't match original"
         print "An error occurred, please contact the SysAdmin with this error"
         print "in: guru.it.uc3m.es"
