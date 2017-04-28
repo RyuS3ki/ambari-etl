@@ -52,7 +52,13 @@ def HDFS():
     tam_orig = get_size('/usr/hdp')
     tam_bd = get_size('/var/bigdata/servicios/hdp')
 
-    if tam_bd == tam_orig:
+    if tam_orig == 0:
+        print "Error 300: There's no /usr/hdp directory to copy from"
+        subprocess.call(["mount", "-o", "remount,ro", "/usr"])
+        print "An error occurred, please contact the SysAdmin with this error"
+        print "in: guru.it.uc3m.es"
+        print "You can also see the error documentation in etl.it.uc3m.es"
+    elif tam_bd == tam_orig:
         os.rename('/usr/hdp', '/usr/hdp-orig')
         os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
         subprocess.call(["mount", "-o", "remount,ro", "/usr"])
@@ -62,6 +68,7 @@ def HDFS():
         print "Error 301: Copy doesn't match original"
         print "An error occurred, please contact the SysAdmin with this error"
         print "in: guru.it.uc3m.es"
+        print "You can also see the error documentation in etl.it.uc3m.es"
 
 
 
