@@ -43,13 +43,13 @@ def get_size(start_path):
     return total_size
 
 def Errors(err):
+    subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
     if err == 300:
         print "Error 300: There's no /usr/hdp directory to copy from"
-
-    subprocess.call(["mount", "-o", "remount,ro", "/usr"])
     print "An error occurred, please contact the SysAdmin with this error"
     print "in: guru.it.uc3m.es"
     print "You can also see the error documentation in etl.it.uc3m.es"
+    exit()
 
 # Services
 
@@ -57,8 +57,6 @@ def Errors(err):
 def HDFS():
     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
     print "Running some checks..."
-
-    err = 0
 
     orig_exists = os.path.exists('/usr/hdp')
     mvd_exists = os.path.exists('/usr/hdp-orig')
@@ -75,7 +73,7 @@ def HDFS():
 
         if orig_exists:
             print "Original directory exists. Freeing space..."
-            subprocess.call(["rm", "-rf", "/var/bigdata/hdp"])
+            subprocess.call(["rm", "-rf", "/usr/hdp"])
             print "Creating symlink..."
             os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
 
@@ -86,7 +84,17 @@ def HDFS():
     if not dest_exists:
         if orig_exists:
             copy('/usr/hdp', '/var/bigdata/servicios/hdp')
-
+            tam_dest = get_size('/var/bigdata/servicios/hdp')
+            tam_orig = get_size('/usr/hdp')
+            if tam_orig == tam_dest:
+                print "Freeing space..."
+                subprocess.call(['rm', '-rf', '/usr/hdp-orig'])
+                print "Creating symlink..."
+                os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
+                print "Done!"
+            else:
+                err = 300
+                Errors(err)
 
 '''
     if orig_exists and (dest_exists or wrong_exists):
