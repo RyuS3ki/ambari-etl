@@ -55,7 +55,6 @@ def Errors(err):
 
 # Basic services needed to run a basic Hadoop instance
 def HDFS():
-    subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
     print "Running some checks..."
 
     orig_exists = os.path.exists('/usr/hdp')
@@ -73,13 +72,19 @@ def HDFS():
 
         if orig_exists:
             print "Original directory exists. Freeing space..."
+            subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             subprocess.call(["rm", "-rf", "/usr/hdp"])
             print "Creating symlink..."
             os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
+            subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
+            print "Done!"
 
         if mvd_exists:
             print "Backup copy of 'hdp' exists... Not needed. Freeing space..."
+            subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             subprocess.call(["rm", "-rf", "/usr/hdp-orig"])
+            subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
+            print "Done!"
 
     if not dest_exists:
         if orig_exists:
@@ -88,35 +93,16 @@ def HDFS():
             tam_orig = get_size('/usr/hdp')
             if tam_orig == tam_dest:
                 print "Freeing space..."
+                subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                 subprocess.call(['rm', '-rf', '/usr/hdp-orig'])
                 print "Creating symlink..."
                 os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
+                subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
                 print "Done!"
             else:
+                subprocess.call(['rm', '-rf', '/var/bigdata/servicios/hdp']) #Nos aseguramos de que no quede una copia mal hecha
                 err = 300
                 Errors(err)
-
-'''
-    if orig_exists and (dest_exists or wrong_exists):
-        if (tam_bd or tam_mvd) == tam_orig:
-
-            if mvd_exists:
-                subprocess.call(["rm", "-rf", "/var/bigdata/servicios/hdp"])
-
-        os.rename('/usr/hdp', '/usr/hdp-orig')
-        os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
-        subprocess.call(["mount", "-o", "remount,ro", "/usr"])
-        print "Done!"
-    else:
-
-
-
-
-
-    subprocess.call(["rm", "-rf", "/var/bigdata/servicios/hdp"])
-    err = 300
-    Errors(err)
-'''
 
 #def Yarn():
 
