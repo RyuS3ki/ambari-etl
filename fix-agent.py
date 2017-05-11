@@ -105,7 +105,7 @@ def HDFS():
             if tam_orig == tam_dest:
                 print "Freeing space..."
                 subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
-                subprocess.call(['rm', '-rf', '/usr/hdp-orig'])
+                subprocess.call(['rm', '-rf', '/usr/hdp'])
                 print "Creating symlink..."
                 os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
                 subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
