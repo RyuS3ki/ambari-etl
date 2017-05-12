@@ -133,8 +133,8 @@ def HDFS():
 
 #def Tez():
 
-def Hive():
-    print "Hive service fix starting"
+def Lib():
+    print "Library fix starting"
     print "Running some checks..."
 
     # /usr/lib/ambari-agent
@@ -194,7 +194,7 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
+            copy('/usr/lib/ambari-agent', '/var/bigdata/servicios/lib/ambari-agent.org')
             subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent.org'])
             print "Done!"
             print "Creating symlink..."
@@ -210,7 +210,7 @@ def Hive():
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-agent.org', '/var/bigdata/backup/lib/ambari-agent')
+                    copy('/usr/lib/ambari-agent.org', '/var/bigdata/servicios/lib/ambari-agent.org')
                     subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent.org'])
                     print "Done!"
                     print "Creating symlink..."
@@ -239,7 +239,7 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-metrics-collector', '/var/bigdata/backup/lib/ambari-agent')
+            copy('/usr/lib/ambari-metrics-collector', '/var/bigdata/servicios/lib/ambari-metrics-collector')
             subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-collector'])
             print "Done!"
             print "Creating symlink..."
@@ -255,7 +255,7 @@ def Hive():
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-metrics-collector', '/var/bigdata/backup/lib/ambari-agent')
+                    copy('/usr/lib/ambari-metrics-collector', '/var/bigdata/servicios/lib/ambari-metrics-collector')
                     subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-collector'])
                     print "Done!"
                     print "Creating symlink..."
@@ -284,7 +284,7 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-metrics-grafana', '/var/bigdata/backup/lib/ambari-agent')
+            copy('/usr/lib/ambari-metrics-grafana', '/var/bigdata/servicios/lib/ambari-metrics-grafana')
             subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-grafana'])
             print "Done!"
             print "Creating symlink..."
@@ -300,7 +300,7 @@ def Hive():
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-metrics-grafana', '/var/bigdata/backup/lib/ambari-agent')
+                    copy('/usr/lib/ambari-metrics-grafana', '/var/bigdata/servicios/lib/ambari-metrics-grafana')
                     subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-grafana'])
                     print "Done!"
                     print "Creating symlink..."
@@ -329,7 +329,7 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-metrics-hadoop-sink', '/var/bigdata/backup/lib/ambari-agent')
+            copy('/usr/lib/ambari-metrics-hadoop-sink', '/var/bigdata/servicios/lib/ambari-metrics-hadoop-sink')
             subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-hadoop-sink'])
             print "Done!"
             print "Creating symlink..."
@@ -345,7 +345,7 @@ def Hive():
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-metrics-hadoop-sink', '/var/bigdata/backup/lib/ambari-agent')
+                    copy('/usr/lib/ambari-metrics-hadoop-sink', '/var/bigdata/servicios/lib/ambari-metrics-hadoop-sink')
                     subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-hadoop-sink'])
                     print "Done!"
                     print "Creating symlink..."
@@ -374,7 +374,7 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-metrics-kafka-sink', '/var/bigdata/backup/lib/ambari-agent')
+            copy('/usr/lib/ambari-metrics-kafka-sink', '/var/bigdata/servicios/lib/ambari-metrics-kafka-sink')
             subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-kafka-sink'])
             print "Done!"
             print "Creating symlink..."
@@ -390,7 +390,7 @@ def Hive():
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-metrics-kafka-sink', '/var/bigdata/backup/lib/ambari-agent')
+                    copy('/usr/lib/ambari-metrics-kafka-sink', '/var/bigdata/servicios/lib/ambari-metrics-kafka-sink')
                     subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-kafka-sink'])
                     print "Done!"
                     print "Creating symlink..."
@@ -419,7 +419,7 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-server', '/var/bigdata/backup/lib/ambari-agent')
+            copy('/usr/lib/ambari-server', '/var/bigdata/servicios/lib/ambari-server')
             subprocess.call(['rm', '-rf', '/usr/lib/ambari-server'])
             print "Done!"
             print "Creating symlink..."
@@ -435,7 +435,7 @@ def Hive():
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-server', '/var/bigdata/backup/lib/ambari-agent')
+                    copy('/usr/lib/ambari-server', '/var/bigdata/servicios/lib/ambari-server')
                     subprocess.call(['rm', '-rf', '/usr/lib/ambari-server'])
                     print "Done!"
                     print "Creating symlink..."
@@ -464,7 +464,7 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-server-backups', '/var/bigdata/backup/lib/ambari-agent')
+            copy('/usr/lib/ambari-server-backups', '/var/bigdata/servicios/lib/ambari-server-backups')
             subprocess.call(['rm', '-rf', '/usr/lib/ambari-server-backups'])
             print "Done!"
             print "Creating symlink..."
@@ -480,7 +480,7 @@ def Hive():
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-server-backups', '/var/bigdata/backup/lib/ambari-agent')
+                    copy('/usr/lib/ambari-server-backups', '/var/bigdata/servicios/lib/ambari-server-backups')
                     subprocess.call(['rm', '-rf', '/usr/lib/ambari-server-backups'])
                     print "Done!"
                     print "Creating symlink..."
@@ -509,6 +509,7 @@ def Hive():
 
 def Generic():
     HDFS()
+    Lib()
     # HBase()
     return 0
 
@@ -520,7 +521,6 @@ def all_services():
     # Yarn()
     # MapReduce()
     # Tez()
-    # Hive()
     # Pig()
     # ZooKeeper()
     # AmbariMetrics()
