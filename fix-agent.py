@@ -184,8 +184,8 @@ def Hive():
 
     # /usr/lib/ambari-agent.org
 
-    orig_exists = os.path.exists('/usr/lib/ambari-agent')
-    dest_exists = os.path.exists('/var/bigdata/servicios/lib/ambari-agent')
+    orig_exists = os.path.exists('/usr/lib/ambari-agent.org')
+    dest_exists = os.path.exists('/var/bigdata/servicios/lib/ambari-agent.org')
 
     if dest_exists:
         print "Previous copy of 'lib/ambari-agent' exists..."
@@ -195,26 +195,26 @@ def Hive():
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
             copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-            subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+            subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent.org'])
             print "Done!"
             print "Creating symlink..."
-            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent.org')
             subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
             print "Done!"
 
         if not dest_exists:
             if orig_exists:
-                copy('/usr/lib/ambari-agent', '/var/bigdata/servicios/lib/ambari-agent')
+                copy('/usr/lib/ambari-agent.org', '/var/bigdata/servicios/lib/ambari-agent')
                 tam_dest = get_size('/var/bigdata/servicios/lib/ambari-agent')
-                tam_orig = get_size('/usr/lib/ambari-agent')
+                tam_orig = get_size('/usr/lib/ambari-agent.org')
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+                    copy('/usr/lib/ambari-agent.org', '/var/bigdata/backup/lib/ambari-agent')
+                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent.org'])
                     print "Done!"
                     print "Creating symlink..."
-                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent.org')
                     subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
                     print "Done!"
                 else:
@@ -229,7 +229,7 @@ def Hive():
 
     # /usr/lib/ambari-metrics-collector
 
-    orig_exists = os.path.exists('/usr/lib/ambari-agent')
+    orig_exists = os.path.exists('/usr/lib/ambari-metrics-collector')
     dest_exists = os.path.exists('/var/bigdata/servicios/lib/ambari-agent')
 
     if dest_exists:
@@ -239,27 +239,27 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-            subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+            copy('/usr/lib/ambari-metrics-collector', '/var/bigdata/backup/lib/ambari-agent')
+            subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-collector'])
             print "Done!"
             print "Creating symlink..."
-            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-metrics-collector')
             subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
             print "Done!"
 
         if not dest_exists:
             if orig_exists:
-                copy('/usr/lib/ambari-agent', '/var/bigdata/servicios/lib/ambari-agent')
+                copy('/usr/lib/ambari-metrics-collector', '/var/bigdata/servicios/lib/ambari-agent')
                 tam_dest = get_size('/var/bigdata/servicios/lib/ambari-agent')
-                tam_orig = get_size('/usr/lib/ambari-agent')
+                tam_orig = get_size('/usr/lib/ambari-metrics-collector')
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+                    copy('/usr/lib/ambari-metrics-collector', '/var/bigdata/backup/lib/ambari-agent')
+                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-collector'])
                     print "Done!"
                     print "Creating symlink..."
-                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-metrics-collector')
                     subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
                     print "Done!"
                 else:
@@ -274,7 +274,7 @@ def Hive():
 
     # /usr/lib/ambari-metrics-grafana
 
-    orig_exists = os.path.exists('/usr/lib/ambari-agent')
+    orig_exists = os.path.exists('/usr/lib/ambari-metrics-grafana')
     dest_exists = os.path.exists('/var/bigdata/servicios/lib/ambari-agent')
 
     if dest_exists:
@@ -284,27 +284,27 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-            subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+            copy('/usr/lib/ambari-metrics-grafana', '/var/bigdata/backup/lib/ambari-agent')
+            subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-grafana'])
             print "Done!"
             print "Creating symlink..."
-            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-metrics-grafana')
             subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
             print "Done!"
 
         if not dest_exists:
             if orig_exists:
-                copy('/usr/lib/ambari-agent', '/var/bigdata/servicios/lib/ambari-agent')
+                copy('/usr/lib/ambari-metrics-grafana', '/var/bigdata/servicios/lib/ambari-agent')
                 tam_dest = get_size('/var/bigdata/servicios/lib/ambari-agent')
-                tam_orig = get_size('/usr/lib/ambari-agent')
+                tam_orig = get_size('/usr/lib/ambari-metrics-grafana')
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+                    copy('/usr/lib/ambari-metrics-grafana', '/var/bigdata/backup/lib/ambari-agent')
+                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-grafana'])
                     print "Done!"
                     print "Creating symlink..."
-                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-metrics-grafana')
                     subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
                     print "Done!"
                 else:
@@ -319,7 +319,7 @@ def Hive():
 
     # /usr/lib/ambari-metrics-hadoop-sink
 
-    orig_exists = os.path.exists('/usr/lib/ambari-agent')
+    orig_exists = os.path.exists('/usr/lib/ambari-metrics-hadoop-sink')
     dest_exists = os.path.exists('/var/bigdata/servicios/lib/ambari-agent')
 
     if dest_exists:
@@ -329,27 +329,27 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-            subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+            copy('/usr/lib/ambari-metrics-hadoop-sink', '/var/bigdata/backup/lib/ambari-agent')
+            subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-hadoop-sink'])
             print "Done!"
             print "Creating symlink..."
-            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-metrics-hadoop-sink')
             subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
             print "Done!"
 
         if not dest_exists:
             if orig_exists:
-                copy('/usr/lib/ambari-agent', '/var/bigdata/servicios/lib/ambari-agent')
+                copy('/usr/lib/ambari-metrics-hadoop-sink', '/var/bigdata/servicios/lib/ambari-agent')
                 tam_dest = get_size('/var/bigdata/servicios/lib/ambari-agent')
-                tam_orig = get_size('/usr/lib/ambari-agent')
+                tam_orig = get_size('/usr/lib/ambari-metrics-hadoop-sink')
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+                    copy('/usr/lib/ambari-metrics-hadoop-sink', '/var/bigdata/backup/lib/ambari-agent')
+                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-hadoop-sink'])
                     print "Done!"
                     print "Creating symlink..."
-                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-metrics-hadoop-sink')
                     subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
                     print "Done!"
                 else:
@@ -364,7 +364,7 @@ def Hive():
 
     # /usr/lib/ambari-metrics-kafka-sink
 
-    orig_exists = os.path.exists('/usr/lib/ambari-agent')
+    orig_exists = os.path.exists('/usr/lib/ambari-metrics-kafka-sink')
     dest_exists = os.path.exists('/var/bigdata/servicios/lib/ambari-agent')
 
     if dest_exists:
@@ -374,27 +374,27 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-            subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+            copy('/usr/lib/ambari-metrics-kafka-sink', '/var/bigdata/backup/lib/ambari-agent')
+            subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-kafka-sink'])
             print "Done!"
             print "Creating symlink..."
-            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-metrics-kafka-sink')
             subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
             print "Done!"
 
         if not dest_exists:
             if orig_exists:
-                copy('/usr/lib/ambari-agent', '/var/bigdata/servicios/lib/ambari-agent')
+                copy('/usr/lib/ambari-metrics-kafka-sink', '/var/bigdata/servicios/lib/ambari-agent')
                 tam_dest = get_size('/var/bigdata/servicios/lib/ambari-agent')
-                tam_orig = get_size('/usr/lib/ambari-agent')
+                tam_orig = get_size('/usr/lib/ambari-metrics-kafka-sink')
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+                    copy('/usr/lib/ambari-metrics-kafka-sink', '/var/bigdata/backup/lib/ambari-agent')
+                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-metrics-kafka-sink'])
                     print "Done!"
                     print "Creating symlink..."
-                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-metrics-kafka-sink')
                     subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
                     print "Done!"
                 else:
@@ -409,7 +409,7 @@ def Hive():
 
     # /usr/lib/ambari-server
 
-    orig_exists = os.path.exists('/usr/lib/ambari-agent')
+    orig_exists = os.path.exists('/usr/lib/ambari-server')
     dest_exists = os.path.exists('/var/bigdata/servicios/lib/ambari-agent')
 
     if dest_exists:
@@ -419,27 +419,27 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-            subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+            copy('/usr/lib/ambari-server', '/var/bigdata/backup/lib/ambari-agent')
+            subprocess.call(['rm', '-rf', '/usr/lib/ambari-server'])
             print "Done!"
             print "Creating symlink..."
-            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-server')
             subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
             print "Done!"
 
         if not dest_exists:
             if orig_exists:
-                copy('/usr/lib/ambari-agent', '/var/bigdata/servicios/lib/ambari-agent')
+                copy('/usr/lib/ambari-server', '/var/bigdata/servicios/lib/ambari-agent')
                 tam_dest = get_size('/var/bigdata/servicios/lib/ambari-agent')
-                tam_orig = get_size('/usr/lib/ambari-agent')
+                tam_orig = get_size('/usr/lib/ambari-server')
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+                    copy('/usr/lib/ambari-server', '/var/bigdata/backup/lib/ambari-agent')
+                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-server'])
                     print "Done!"
                     print "Creating symlink..."
-                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+                    os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-server')
                     subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
                     print "Done!"
                 else:
@@ -454,7 +454,7 @@ def Hive():
 
     # /usr/lib/ambari-server-backups
 
-    orig_exists = os.path.exists('/usr/lib/ambari-agent')
+    orig_exists = os.path.exists('/usr/lib/ambari-server-backups')
     dest_exists = os.path.exists('/var/bigdata/servicios/lib/ambari-agent')
 
     if dest_exists:
@@ -464,24 +464,24 @@ def Hive():
             print "Original directory exists. Freeing space..."
             subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
             print "Creating backup, please wait..."
-            copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-            subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+            copy('/usr/lib/ambari-server-backups', '/var/bigdata/backup/lib/ambari-agent')
+            subprocess.call(['rm', '-rf', '/usr/lib/ambari-server-backups'])
             print "Done!"
             print "Creating symlink..."
-            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
+            os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-server-backups')
             subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
             print "Done!"
 
         if not dest_exists:
             if orig_exists:
-                copy('/usr/lib/ambari-agent', '/var/bigdata/servicios/lib/ambari-agent')
+                copy('/usr/lib/ambari-server-backups', '/var/bigdata/servicios/lib/ambari-agent')
                 tam_dest = get_size('/var/bigdata/servicios/lib/ambari-agent')
-                tam_orig = get_size('/usr/lib/ambari-agent')
+                tam_orig = get_size('/usr/lib/ambari-server-backups')
                 if tam_orig == tam_dest:
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     print "Creating backup, please wait..."
-                    copy('/usr/lib/ambari-agent', '/var/bigdata/backup/lib/ambari-agent')
-                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-agent'])
+                    copy('/usr/lib/ambari-server-backups', '/var/bigdata/backup/lib/ambari-agent')
+                    subprocess.call(['rm', '-rf', '/usr/lib/ambari-server-backups'])
                     print "Done!"
                     print "Creating symlink..."
                     os.symlink('/var/bigdata/servicios/lib/ambari-agent', '/usr/lib/ambari-agent')
