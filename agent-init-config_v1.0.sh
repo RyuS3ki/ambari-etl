@@ -5,5 +5,3 @@ cp /usr/dist/ambari/ambari-etl/ambari-agent.ini /etc/ambari-agent/conf/ambari-ag
 
 #Añadimos el equipo a /etc/hosts
 python hosts-ambari.py
-
-
