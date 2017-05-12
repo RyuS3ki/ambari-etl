@@ -99,10 +99,23 @@ def HDFS():
 
     if not dest_exists:
         if orig_exists:
-            copy('/usr/hdp', '/var/bigdata/servicios/hdp')
-            tam_dest = get_size('/var/bigdata/servicios/hdp')
             tam_orig = get_size('/usr/hdp')
-            if tam_orig == tam_dest:
+            if tam_orig != 0:
+                copy('/usr/hdp', '/var/bigdata/servicios/hdp')
+                tam_dest = get_size('/var/bigdata/servicios/hdp')
+                if tam_dest == tam_orig:
+                    print "Freeing space..."
+                    subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
+                    subprocess.call(['rm', '-rf', '/usr/hdp'])
+                    print "Creating symlink..."
+                    os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
+                    subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
+                    print "Done!"
+                else:
+                    subprocess.call(['rm', '-rf', '/var/bigdata/servicios/hdp']) #Nos aseguramos de que no quede una copia mal hecha
+                    err = 301
+                    Errors(err)
+            else:
                 print "Freeing space..."
                 subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                 subprocess.call(['rm', '-rf', '/usr/hdp'])
@@ -110,11 +123,6 @@ def HDFS():
                 os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
                 subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
                 print "Done!"
-            else:
-                subprocess.call(['rm', '-rf', '/var/bigdata/servicios/hdp']) #Nos aseguramos de que no quede una copia mal hecha
-                err = 301
-                Errors(err)
-
         else:
             err = 300
             Errors(err)
