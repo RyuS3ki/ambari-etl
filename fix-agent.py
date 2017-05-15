@@ -98,6 +98,7 @@ def HDFS():
             print "Done!"
 
     else:
+        print "Clean agent, starting changes..."
         if orig_exists:
             tam_orig = get_size('/usr/hdp')
             if tam_orig != 0:
@@ -115,6 +116,17 @@ def HDFS():
                     subprocess.call(['rm', '-rf', '/var/bigdata/servicios/hdp']) #Nos aseguramos de que no quede una copia mal hecha
                     err = 301
                     Errors(err)
+
+            else:
+                print "Creating directory..."
+                os.makedirs('/var/bigdata/servicios/hdp')
+                print "Freeing space..."
+                subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
+                subprocess.call(['rm', '-rf', '/usr/hdp'])
+                print "Creating symlink..."
+                os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
+                subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
+                print "Done!"
 
         else:
             print "Creating directory..."
