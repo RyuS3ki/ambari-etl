@@ -116,6 +116,8 @@ def HDFS():
                     err = 301
                     Errors(err)
             else:
+                print "Creating directory..."
+                os.makedirs('/var/bigdata/servicios/hdp')
                 print "Freeing space..."
                 subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                 subprocess.call(['rm', '-rf', '/usr/hdp'])
