@@ -97,7 +97,7 @@ def HDFS():
             subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
             print "Done!"
 
-    if not dest_exists:
+    else:
         if orig_exists:
             tam_orig = get_size('/usr/hdp')
             if tam_orig != 0:
