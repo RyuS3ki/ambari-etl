@@ -115,19 +115,18 @@ def HDFS():
                     subprocess.call(['rm', '-rf', '/var/bigdata/servicios/hdp']) #Nos aseguramos de que no quede una copia mal hecha
                     err = 301
                     Errors(err)
-            else:
-                print "Creating directory..."
-                os.makedirs('/var/bigdata/servicios/hdp')
-                print "Freeing space..."
-                subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
-                subprocess.call(['rm', '-rf', '/usr/hdp'])
-                print "Creating symlink..."
-                os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
-                subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
-                print "Done!"
+
         else:
-            err = 300
-            Errors(err)
+            print "Creating directory..."
+            os.makedirs('/var/bigdata/servicios/hdp')
+            print "Freeing space..."
+            subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
+            subprocess.call(['rm', '-rf', '/usr/hdp'])
+            print "Creating symlink..."
+            os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
+            subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
+            print "Done!"
+
 
 #def Yarn():
 
