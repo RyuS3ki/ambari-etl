@@ -592,7 +592,7 @@ def selector(confile):
 # desperate method for "fixing" things)
 def Reset():
     restart = 'update-agent'
-    remove = 'ambari-agent-uninstall.sh'
+    remove = 'ambari-agent-uninstall'
     print "Resetting agent..."
     subprocess.check_output(remove, shell=True)
     subprocess.check_output(script, shell=True)
