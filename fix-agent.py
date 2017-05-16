@@ -103,7 +103,7 @@ def HDFS():
             tam_orig = get_size('/usr/hdp')
             if tam_orig != 0:
                 # copy('/usr/hdp', '/var/bigdata/servicios/hdp')
-                subprocess.call(['cp', '-R', '/usr/hdp','/var/bigdata/servicios/hdp'])
+                copy('/usr/hdp','/var/bigdata/servicios/hdp')
                 tam_dest = get_size('/var/bigdata/servicios/hdp')
                 if tam_dest == tam_orig:
                     print "Freeing space..."
