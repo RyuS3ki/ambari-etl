@@ -17,6 +17,8 @@ mkdir /usr/hdp
 mkdir /usr/hdp/current
 ln -s /usr/local/hadoop-2.7.0 /usr/hdp/current/hadoop-client
 sh /var/bigdata/ambari-etl/agent-init-config_v1.0.sh
+touch /usr/hdp/foo.txt
+echo "README.md" >> foo.txt
 
 mount -o remount,ro /usr
 
