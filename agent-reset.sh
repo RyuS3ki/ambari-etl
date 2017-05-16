@@ -15,7 +15,7 @@ echo "Restoring symlinks..."
 
 mkdir /usr/hdp
 mkdir /usr/hdp/current
-ln -sfn /usr/local/hadoop-2.7.0 /usr/hdp/current/hadoop-client
+ln -s /usr/local/hadoop-2.7.0 /usr/hdp/current/hadoop-client
 sh /var/bigdata/ambari-etl/agent-init-config_v1.0.sh
 
 mount -o remount,ro /usr
