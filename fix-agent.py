@@ -103,8 +103,8 @@ def HDFS():
             foo = os.path.isfile('/usr/hdp/foo.txt')
             if foo:
                 copy('/usr/hdp','/var/bigdata/servicios/hdp')
-                tam_dest = get_size('/var/bigdata/servicios/hdp')
-                if tam_dest == tam_orig:
+                bar = os.path.isfile('/var/bigdata/servicios/hdp/foo.txt')
+                if bar:
                     print "Freeing space..."
                     subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
                     subprocess.call(['rm', '-rf', '/usr/hdp'])
