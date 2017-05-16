@@ -45,7 +45,7 @@ def get_size(start_path):
 def Errors(err):
     subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
     if err == 300:
-        print "Error 300: There's no original directory to copy from"
+        print "Error 300: Please run this script in reset mode before continuing"
 
     elif err == 301:
         print "Error 301: Copy failed, try again"
@@ -119,15 +119,8 @@ def HDFS():
                     Errors(err)
 
             else:
-                print "Creating directory..."
-                os.makedirs('/var/bigdata/servicios/hdp')
-                print "Freeing space..."
-                subprocess.call(['mount', '-o', 'remount,rw', '/usr'])
-                subprocess.call(['rm', '-rf', '/usr/hdp'])
-                print "Creating symlink..."
-                os.symlink('/var/bigdata/servicios/hdp', '/usr/hdp')
-                subprocess.call(['mount', '-o', 'remount,ro', '/usr'])
-                print "Done!"
+                err = 300
+                Errors(err)
 
         else:
             print "Creating directory..."
