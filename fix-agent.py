@@ -603,8 +603,8 @@ def selector(confile):
 # Function that resets all client configuration about Ambari (this is the
 # desperate method for "fixing" things)
 def Reset():
-    restart = 'update-agent.sh'
-    remove = 'ambari-agent-uninstall.sh'
+    restart = '/var/bigdata/ambari-etl/update-agent.sh'
+    remove = '/var/bigdata/ambari-etl/ambari-agent-uninstall.sh'
     print "Resetting agent..."
     subprocess.check_output(remove, shell=True)
     subprocess.check_output(restart, shell=True)
