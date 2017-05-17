@@ -598,7 +598,7 @@ def selector(confile):
 def Reset():
     script = '/var/bigdata/ambari-etl/agent-reset.sh'
     print "Resetting agent..."
-    subprocess.check_output(script, shell=True)
+    subprocess.call(script)
     print "Done! Remember to run this script again before connecting to the server"
 
 def usage():
